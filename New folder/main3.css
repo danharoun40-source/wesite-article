@@ -1,0 +1,21 @@
+
+body{
+background-color:beige;
+}
+header h1{
+    color: black;
+}
+header p{
+    color: black;
+}
+.card-body h5{
+    font-weight: bold;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    margin: 5px auto;
+}
+.custom-header {
+  background-color: beige; /* غيري الكود ده لأي لون */
+}
+
