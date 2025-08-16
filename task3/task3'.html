@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Guessing game </title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background-color: beige; }
+    #word { font-size: 24px; letter-spacing: 8px; }
+    #message { margin-top: 15px; font-weight: bold; }
+</style>
+<link rel="stylesheet" href="./main3.css">
+</head>
+<body>
+<h2>Guessing game 💡</h2>
+
+<div id="word"></div>
+
+<p>Write the letter:</p>
+<input type="text" id="guessInput" maxlength="1">
+<button onclick="guess()">Guessing</button>
+<button onclick="resetGame()">Reply the game </button>
+
+<p>Mistakes: <span id="wrongCount">0</span> / 6</p>
+
+<div id="message"></div>
+
+<script>
+    const words = ["apple", "banana", "computer", "mango", "javascript", "game", "code"];
+
+    let word = "";
+    let correct = [];
+    let wrong = 0;
+
+    function pickWord() {
+      const randomIndex = Math.floor(Math.random() * words.length);
+    word = words[randomIndex];
+    }
+
+    function showWord() {
+    let display = "";
+    for (let ch of word) {
+        display += (correct.includes(ch) ? ch : "_") + " ";
+    }
+    document.getElementById("word").textContent = display;
+    }
+
+    function guess() {
+    let input = document.getElementById("guessInput");
+    let letter = input.value.toLowerCase();
+    input.value = "";
+
+    if (!letter.match(/[a-z]/) || letter.length === 0) return;
+
+    if (word.includes(letter)) {
+        if (!correct.includes(letter)) {
+        correct.push(letter);
+        }
+    } else {
+        wrong++;
+        document.getElementById("wrongCount").textContent = wrong;
+    }
+    checkGame();
+    showWord();
+    }
+
+    function checkGame() {
+    if (wrong >= 6) {
+        document.getElementById("message").textContent = "you lost! the word was : " + word;
+    } else if (word.split("").every(ch => correct.includes(ch))) {
+        document.getElementById("message").textContent = "Congratulations on the win🎉";
+    }
+    }
+
+    function resetGame() {
+    correct = [];
+    wrong = 0;
+    document.getElementById("wrongCount").textContent = wrong;
+    document.getElementById("message").textContent = "";
+    pickWord();
+    showWord();
+    }
+    resetGame();
+</script>
+</body>
+</html>
